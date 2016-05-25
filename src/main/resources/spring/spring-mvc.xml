@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       ">
+    <context:component-scan base-package="com.shopping.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <mvc:view-resolvers> 
+	    <mvc:content-negotiation>  
+	        <mvc:default-views>  
+	            <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">  
+	                <property name="jsonpParameterNames">  
+	                    <set>  
+	                        <value>jsonp</value>  
+	                    </set>  
+	                </property>  
+	            </bean>  
+	        </mvc:default-views>  
+	    </mvc:content-negotiation>  
+   		<mvc:jsp cache-views="false" prefix="/views/" suffix=".jsp"/>
+	</mvc:view-resolvers>
+	
+	<!-- SpringMVC上传文件时，需要配置MultipartResolver处理器 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 指定所上传文件的总大小不能超过20MB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+		<property name="maxUploadSize" value="20971520" />
+		<property name="resolveLazily" value="true" />
+		<property name="maxInMemorySize" value="4096" />
+	</bean>
+
+	<!-- SpringMVC在超出上传文件限制时，会抛出org.springframework.web.multipart.MaxUploadSizeExceededException -->
+	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/views/error_fileupload.jsp页面 -->
+				<prop
+					key="org.springframework.web.multipart.MaxUploadSizeExceededException">error_fileupload</prop>
+			</props>
+		</property>
+	</bean>  
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/viewsjs/**" location="/viewsjs/" />
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/resources/**" />
+			<mvc:exclude-mapping path="/viewsjs/**" />
+			
+			<bean class="org.yyz.interceptor.AuthenticationInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+    <mvc:annotation-driven/>
+   <!--  <bean id="LoginOperation" class="com.liuhui.fm.log.LoginOperation" />
+	<aop:config>
+		<aop:pointcut id="login" expression="execution(String com.liuhui.fm.controller.CommonController.loginPOST(..))"  />
+      	 <aop:aspect id="logind" ref="LoginOperation">//调用日志类
+            <aop:after-returning returning="returnObj" pointcut-ref="login" method="loginEnd" />
+      	</aop:aspect>
+	</aop:config> -->
+  </beans>

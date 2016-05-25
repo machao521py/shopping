@@ -1,0 +1,102 @@
+﻿@charset "utf-8";
+/*====================登录样式==================*/
+.login_bg{
+	background: #fff url(images/login_bg.jpg) repeat-x left top!important;
+	font-size:12px;
+}
+.login_main {
+	width: 891px;
+	margin:0 auto;
+}
+.login_logo{
+	width:891px;
+	/*background: url(images/login_zf.jpg) no-repeat right top; */
+	margin-top:22px;
+	text-align:left;
+	min-height:80px;
+	_height:80px;
+}
+.login_submit{
+	background:url(images/login_in.gif) no-repeat 0 0;
+	width:58px;
+	height:20px;
+	border:none;
+	float:left;
+	cursor:pointer;
+	margin-left:45px;
+	display:inline;
+	}
+.login_reset{
+	background:url(images/login_res.gif) no-repeat 0 0;
+	width:58px;
+	height:20px;
+	border:none;
+	float:left;
+	cursor:pointer;
+	margin-left:45px;
+	display:inline;
+	}
+.login_logo .logo{
+	margin-top:30px;
+}
+
+.login_left{
+	float:left;
+	height:340px;
+	width:426px;
+	background: url(images/login_left.jpg) no-repeat;
+}
+.login_left .login_pic{
+	margin:29px 0 0 0;
+}
+.login_right{
+	float:left;
+	height:340px;
+	width:462px;
+	background: url(images/login_right.jpg) no-repeat;
+	text-align:left;
+}
+.login_right dl{
+	margin:92px 0 0 105px;
+}
+.login_copyright{
+	color:#859CBD;
+}
+
+.login_right .btn_dl,.login_right .btn_cz{
+	height: 20px;
+	width:58px;
+	margin:0 4px;
+}
+.login_right .uesr{
+	background:  url(images/login_ico.gif) no-repeat left 4px;
+	text-indent:1.5em;
+	display:block;
+	margin-bottom:20px;
+}
+.login_right .passw{
+	background:  url(images/login_ico.gif) no-repeat left -24px;
+	text-indent:1.5em;
+	display:block;
+	margin-bottom:20px;
+}
+.login_right .yzm{
+    background:  url(images/login_ico.gif) no-repeat left -52px;
+	text-indent:1.5em;
+	display:block;
+	margin-bottom:20px;
+}
+.login_right .btn_dl{
+	background:  url(images/login_in.gif) no-repeat;
+}
+.login_right .btn_dl:hover{
+	background:  url(images/login_in.gif) no-repeat;
+}
+.login_right .btn_cz{
+	background:  url(images/login_res.gif) no-repeat;
+}
+.login_right .btn_cz:hover{
+	background:  url(images/login_res.gif) no-repeat;
+}
+
+
